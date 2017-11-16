@@ -8,6 +8,7 @@ main() {
   prepare_liferay_tomcat_config
   prepare_liferay_deploy_directory
   prepare_liferay_osgi_configs_directory
+  clean_liferay_deploy_config
   run_portal "$@"
 }
 
@@ -35,11 +36,30 @@ prepare_liferay_deploy_directory() {
   with Liferay:
   "
   tree $LIFERAY_DEPLOY_DIR
-
-  [ -f $LIFERAY_DEPLOY_DIR/*.lpkg ] && cp $LIFERAY_DEPLOY_DIR/*.lpkg $LIFERAY_HOME/osgi/marketplace
-  [ -f $LIFERAY_DEPLOY_DIR/*.jar ] && cp $LIFERAY_DEPLOY_DIR/*.jar $LIFERAY_HOME/osgi/modules
-  [ -f $LIFERAY_DEPLOY_DIR/*.war ] && cp $LIFERAY_DEPLOY_DIR/*.war $LIFERAY_HOME/osgi/war
-  [ -f $LIFERAY_DEPLOY_DIR/*.xml ] && cp $LIFERAY_DEPLOY_DIR/*.xml $LIFERAY_HOME/deploy
+  
+  FILES=$LIFERAY_DEPLOY_DIR/*.lpkg
+  for f in $FILES
+  do
+    [ -f $f ] && cp $f $LIFERAY_HOME/osgi/marketplace
+  done
+  
+  FILES=$LIFERAY_DEPLOY_DIR/*.jar
+  for f in $FILES
+  do
+    [ -f $f ] && cp $f $LIFERAY_HOME/osgi/modules
+  done
+  
+  FILES=$LIFERAY_DEPLOY_DIR/*.war
+  for f in $FILES
+  do
+    [ -f $f ] && cp $f $LIFERAY_HOME/osgi/war
+  done
+  
+  FILES=$LIFERAY_DEPLOY_DIR/*.xml
+  for f in $FILES
+  do
+    [ -f $f ] && cp $f $LIFERAY_HOME/deploy
+  done
 
   echo "
   Continuing.
@@ -116,6 +136,11 @@ prepare_liferay_tomcat_config() {
   echo "
   Continuing.
   "
+}
+
+clean_liferay_deploy_config() {
+  rm -rf $LIFERAY_DEPLOY_DIR
+  rm -rf $LIFERAY_CONFIG_DIR
 }
 
 run_portal() {
