@@ -4,14 +4,15 @@
 - docker software
 
 ## Steps
-- Checkout this branch
-- Go to the checkout directory in command prompt
-- Use "docker build -t liferay-ce:7.0-ga5 ." to build an image.
-- Use "docker images" to verify that the image is created.
-- Use "docker run -d --name mylfr7 -p 8080:8080 -p 11311:11311 -v storage:/usr/local liferay-ce:7.0-ga5" to start a container.
-- Use "docker exec -it mylfr7 /bin/bash" to enter into container.
-- Use "docker exec -it -u liferay mylfr7 /bin/bash" to enter into container with liferay as user.
-- Use "exit" to exit container.
-- Use "docker container stop mylfr7" to stop the container.
-- Use "docker container start mylfr7" to start the container.
-- Use "docker stats -a" to get status of the docker daemon.
+1. Checkout this branch
+1. Go to the checkout directory in command prompt
+1. Build an image using ```docker build -t liferay-ce:7.0-ga5 .```
+1. Verify that the image is built using ```docker images```
+1. Start a container using ```docker run -d --name mylfr7 -p 8080:8080 -p 11311:11311 -v storage:/usr/local liferay-ce:7.0-ga5```
+1. Verify that the container is created and up using ```docker ps -a```
+1. To enter into container, use ```docker exec -it mylfr7 /bin/bash```
+1. To enter into container with liferay as user, use ```docker exec -it -u liferay mylfr7 /bin/bash```
+1. Exit container using ```exit```
+1. To stop the container, use ```docker container stop mylfr7```
+1. To start the container, use ```docker container start mylfr7```
+1. To view status of docker daemon, use ```docker stats -a```
