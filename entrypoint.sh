@@ -37,29 +37,10 @@ prepare_liferay_deploy_directory() {
   "
   tree $LIFERAY_DEPLOY_DIR
   
-  FILES=$LIFERAY_DEPLOY_DIR/*.lpkg
-  for f in $FILES
-  do
-    [ -f $f ] && cp $f $LIFERAY_HOME/osgi/marketplace
-  done
-  
-  FILES=$LIFERAY_DEPLOY_DIR/*.jar
-  for f in $FILES
-  do
-    [ -f $f ] && cp $f $LIFERAY_HOME/osgi/modules
-  done
-  
-  FILES=$LIFERAY_DEPLOY_DIR/*.war
-  for f in $FILES
-  do
-    [ -f $f ] && cp $f $LIFERAY_HOME/osgi/war
-  done
-  
-  FILES=$LIFERAY_DEPLOY_DIR/*.xml
-  for f in $FILES
-  do
-    [ -f $f ] && cp $f $LIFERAY_HOME/deploy
-  done
+  [ `ls -1 $LIFERAY_DEPLOY_DIR/*.lpkg | wc -l` -gt 0 ] && cp $LIFERAY_DEPLOY_DIR/*.lpkg $LIFERAY_HOME/osgi/marketplace
+  [ `ls -1 $LIFERAY_DEPLOY_DIR/*.jar | wc -l` -gt 0 ] && cp $LIFERAY_DEPLOY_DIR/*.jar $LIFERAY_HOME/osgi/modules
+  [ `ls -1 $LIFERAY_DEPLOY_DIR/*.war | wc -l` -gt 0 ] && cp $LIFERAY_DEPLOY_DIR/*.war $LIFERAY_HOME/osgi/war
+  [ `ls -1 $LIFERAY_DEPLOY_DIR/*.xml | wc -l` -gt 0 ] && cp $LIFERAY_DEPLOY_DIR/*.xml $LIFERAY_HOME/deploy
 
   echo "
   Continuing.
